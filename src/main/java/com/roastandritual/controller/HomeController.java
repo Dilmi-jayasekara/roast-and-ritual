@@ -76,7 +76,7 @@ public class HomeController {
         return "contact";
     }
     
-    // Handle newsletter subscription
+    // Handle newsletter subscript
     @PostMapping("/subscribe")
     public String subscribe(@RequestParam String email, Model model) {
         System.out.println("New subscriber: " + email);
