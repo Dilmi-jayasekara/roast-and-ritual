@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { background-color: #2C1F18; font-family: 'Manrope', sans-serif; color: #FAF7F2; }
+    h1, h2, h3 { font-family: 'Newsreader', serif; }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+</style>
+</head>
+<body>
+
+<nav class="w-full sticky top-0 z-50 bg-[#2C1F18]/95 backdrop-blur-md border-b border-[#D4A373]/20">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
+    <div class="text-2xl font-serif italic text-[#D4A373]"><a href="/">Roast & Ritual</a></div>
+    <div class="hidden md:flex items-center gap-8">
+        <a class="text-[#C5B5A8] hover:text-[#D4A373]" href="/">Home</a>
+        <a class="text-[#D4A373] font-bold border-b-2 border-[#D4A373]" href="/menu">Cafe Menu</a>
+        <a class="text-[#C5B5A8] hover:text-[#D4A373]" href="/shop">Shop Beans</a>
+        <a class="text-[#C5B5A8] hover:text-[#D4A373]" href="/contact">Contact</a>
+    </div>
+    <a href="/cart" class="relative flex items-center gap-2 px-5 py-2 bg-[#D4A373] text-[#2C1F18] rounded-full hover:bg-[#E8B88A]">
+        <span class="material-symbols-outlined text-xl">shopping_bag</span>
+        <span class="text-[10px] uppercase font-bold">Cart</span>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-[#2C1F18] text-[#D4A373] text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+    </a>
+</div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-8 py-16">
+    <div class="text-center mb-16">
+        <h1 class="text-6xl text-[#D4A373] mb-4">The Art of Extraction</h1>
+        <p class="text-[#C5B5A8] text-lg">Explore our curated selection of seasonal harvests</p>
+    </div>
+
+    <!-- Slow Bar Section -->
+    <section class="mb-24">
+        <h2 class="text-4xl text-[#D4A373] mb-8 border-b border-[#D4A373]/20 pb-4">Slow Bar</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
+                <img th:src="@{/images/pouring-coffee.jpg}" class="w-full h-64 object-cover"/>
+                <div class="p-6">
+                    <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Hand-Poured V60</h3><span>$7.50</span></div>
+                    <p class="text-[#C5B5A8] text-sm my-4">A clarity of flavor achieved through delicate precision.</p>
+                    <div class="flex gap-2 mb-4"><span class="bg-[#D4A373] text-[#2C1F18] px-2 py-1 rounded-full text-xs">Bright</span><span class="bg-[#D4A373] text-[#2C1F18] px-2 py-1 rounded-full text-xs">Citrus</span></div>
+                    <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Hand-Poured V60" data-price="7.50" data-image="/images/pouring-coffee.jpg">Add to Order</button>
+                </div>
+            </div>
+            <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
+                <img th:src="@{/images/coffee-beans.jpg}" class="w-full h-64 object-cover"/>
+                <div class="p-6">
+                    <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Aeropress Origin</h3><span>$6.50</span></div>
+                    <p class="text-[#C5B5A8] text-sm my-4">Textured, full-bodied with deep chocolate notes.</p>
+                    <div class="flex gap-2 mb-4"><span class="bg-[#D4A373] text-[#2C1F18] px-2 py-1 rounded-full text-xs">Nutty</span><span class="bg-[#D4A373] text-[#2C1F18] px-2 py-1 rounded-full text-xs">Rich</span></div>
+                    <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Aeropress Origin" data-price="6.50" data-image="/images/coffee-beans.jpg">Add to Order</button>
+                </div>
+            </div>
+            <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
+                <img th:src="@{/images/chemex.jpg}" class="w-full h-64 object-cover"/>
+                <div class="p-6">
+                    <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Chemex For Two</h3><span>$12.00</span></div>
+                    <p class="text-[#C5B5A8] text-sm my-4">Tea-like purity meant for lingering conversation.</p>
+                    <div class="flex gap-2 mb-4"><span class="bg-[#D4A373] text-[#2C1F18] px-2 py-1 rounded-full text-xs">Shared</span><span class="bg-[#D4A373] text-[#2C1F18] px-2 py-1 rounded-full text-xs">Tea-Like</span></div>
+                    <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Chemex For Two" data-price="12.00" data-image="/images/chemex.jpg">Add to Order</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Espresso Rituals -->
+    <section class="mb-24">
+        <h2 class="text-4xl text-[#D4A373] mb-8 border-b border-[#D4A373]/20 pb-4">Espresso Rituals</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-[#362419] rounded-2xl p-6 flex gap-6 items-center border border-[#D4A373]/20">
+                <img th:src="@{/images/espresso-shot.jpg}" class="w-24 h-24 object-cover rounded-full"/>
+                <div class="flex-1">
+                    <div class="flex justify-between"><h3 class="text-xl text-[#D4A373]">The Ritual Shot</h3><span>$4.00</span></div>
+                    <p class="text-[#C5B5A8] text-sm my-2">Double ristretto pull. Intense, syrupy.</p>
+                    <button class="cart-btn bg-[#D4A373] text-[#2C1F18] px-4 py-2 rounded-full text-xs uppercase font-bold" data-name="The Ritual Shot" data-price="4.00" data-image="/images/espresso-shot.jpg">Add to Order</button>
+                </div>
+            </div>
+            <div class="bg-[#362419] rounded-2xl p-6 flex gap-6 items-center border border-[#D4A373]/20">
+                <img th:src="@{/images/macchiato.jpg}" class="w-24 h-24 object-cover rounded-full"/>
+                <div class="flex-1">
+                    <div class="flex justify-between"><h3 class="text-xl text-[#D4A373]">Cloud Macchiato</h3><span>$5.50</span></div>
+                    <p class="text-[#C5B5A8] text-sm my-2">Whisper of milk foam over bold espresso.</p>
+                    <button class="cart-btn bg-[#D4A373] text-[#2C1F18] px-4 py-2 rounded-full text-xs uppercase font-bold" data-name="Cloud Macchiato" data-price="5.50" data-image="/images/macchiato.jpg">Add to Order</button>
+                </div>
+            </div>
+            <div class="bg-[#362419] rounded-2xl p-6 flex gap-6 items-center border border-[#D4A373]/20">
+                <img th:src="@{/images/espresso-velvet-flatwhite.jpg}" class="w-24 h-24 object-cover rounded-full"/>
+                <div class="flex-1">
+                    <div class="flex justify-between"><h3 class="text-xl text-[#D4A373]">Velvet Flat White</h3><span>$6.00</span></div>
+                    <p class="text-[#C5B5A8] text-sm my-2">Micro-foamed milk, buttery finish.</p>
+                    <button class="cart-btn bg-[#D4A373] text-[#2C1F18] px-4 py-2 rounded-full text-xs uppercase font-bold" data-name="Velvet Flat White" data-price="6.00" data-image="/images/espresso-velvet-flatwhite.jpg">Add to Order</button>
+                </div>
+            </div>
+            <div class="bg-[#362419] rounded-2xl p-6 flex gap-6 items-center border border-[#D4A373]/20">
+                <img th:src="@{/images/cortado.jpg}" class="w-24 h-24 object-cover rounded-full"/>
+                <div class="flex-1">
+                    <div class="flex justify-between"><h3 class="text-xl text-[#D4A373]">Cortado</h3><span>$5.25</span></div>
+                    <p class="text-[#C5B5A8] text-sm my-2">Equal parts espresso and warm milk.</p>
+                    <button class="cart-btn bg-[#D4A373] text-[#2C1F18] px-4 py-2 rounded-full text-xs uppercase font-bold" data-name="Cortado" data-price="5.25" data-image="/images/cortado.jpg">Add to Order</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seasonal Sips -->
+    <section class="mb-24">
+        <h2 class="text-4xl text-[#D4A373] mb-8 border-b border-[#D4A373]/20 pb-4">Seasonal Sips</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-[#362419] rounded-2xl p-6 flex gap-6 items-center border border-[#D4A373]/20">
+                <img th:src="@{/images/seasonal-lavender.jpg}" class="w-28 h-28 object-cover rounded-full"/>
+                <div>
+                    <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Lavender Honey Latte</h3><span>$7.50</span></div>
+                    <p class="text-[#C5B5A8] my-2">Floral dream with local wildflower honey.</p>
+                    <button class="cart-btn bg-[#D4A373] text-[#2C1F18] px-4 py-2 rounded-full text-xs uppercase font-bold" data-name="Lavender Honey Latte" data-price="7.50" data-image="/images/seasonal-lavender.jpg">Add to Order</button>
+                </div>
+            </div>
+            <div class="bg-[#362419] rounded-2xl p-6 flex gap-6 items-center border border-[#D4A373]/20">
+                <img th:src="@{/images/seasonal-maple-coldbrew.jpg}" class="w-28 h-28 object-cover rounded-full"/>
+                <div>
+                    <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Smoked Maple Cold Brew</h3><span>$6.75</span></div>
+                    <p class="text-[#C5B5A8] my-2">12-hour steep with wood-fired maple syrup.</p>
+                    <button class="cart-btn bg-[#D4A373] text-[#2C1F18] px-4 py-2 rounded-full text-xs uppercase font-bold" data-name="Smoked Maple Cold Brew" data-price="6.75" data-image="/images/seasonal-maple-coldbrew.jpg">Add to Order</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscription Banner -->
+    <div class="bg-[#D4A373] text-[#2C1F18] rounded-3xl p-12 text-center">
+        <h2 class="text-4xl font-headline mb-4">Bring the ritual home.</h2>
+        <p class="mb-6">Subscribe and get 15% off every bag plus exclusive access.</p>
+        <a href="/subscription" class="inline-block bg-[#2C1F18] text-[#D4A373] px-8 py-3 rounded-full font-bold hover:bg-[#3D2B23]">Start Subscription</a>
+    </div>
+</main>
+
+<footer class="w-full py-16 px-8 mt-20 bg-[#1A120E] border-t border-[#D4A373]/20 text-center">
+    <p class="text-[#C5B5A8] text-sm">© 2024 Roast &amp; Ritual. Brewed with intention.</p>
+</footer>
+
+<script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); updateCartCount(); }
+    
+    function updateCartCount() { const total = cart.reduce((s,i)=> s + i.quantity, 0); document.querySelectorAll('#cart-count').forEach(el => el.textContent = total); }
+    
+    function showNotification(msg, type) { 
+        const n = document.createElement('div'); 
+        n.textContent = msg; 
+        n.style.cssText = `position:fixed;bottom:20px;right:20px;background:${type==='success'?'#D4A373':'#ba1a1a'};color:${type==='success'?'#2C1F18':'#fff'};padding:12px 24px;border-radius:50px;z-index:9999;animation:slideIn 0.3s ease;`; 
+        document.body.appendChild(n); 
+        setTimeout(() => n.remove(), 2000); 
+    }
+    
+    function addToCart(name, price, image) { 
+        const existing = cart.find(i => i.name === name); 
+        if(existing) { 
+            existing.quantity++; 
+        } else { 
+            cart.push({ name, price, quantity: 1, image: image }); 
+        } 
+        saveCart(); 
+        showNotification(`✓ ${name} added!`, 'success'); 
+    }
+    
+    document.querySelectorAll('.cart-btn').forEach(btn => { 
+        btn.addEventListener('click', () => { 
+            addToCart(btn.dataset.name, parseFloat(btn.dataset.price), btn.dataset.image); 
+        }); 
+    });
+    
+    updateCartCount();
+</script>
+</body>
+</html>

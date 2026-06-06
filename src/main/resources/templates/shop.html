@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html class="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shop - Roast &amp; Ritual</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { background-color: #2C1F18; font-family: 'Manrope', sans-serif; color: #FAF7F2; }
+    h1, h2, h3 { font-family: 'Newsreader', serif; }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+</style>
+</head>
+<body>
+
+<nav class="w-full sticky top-0 z-50 bg-[#2C1F18]/95 backdrop-blur-md border-b border-[#D4A373]/20">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
+    <div class="text-2xl font-serif italic text-[#D4A373]"><a href="/">Roast & Ritual</a></div>
+    <div class="hidden md:flex items-center gap-8">
+        <a class="text-[#C5B5A8] hover:text-[#D4A373]" href="/">Home</a>
+        <a class="text-[#C5B5A8] hover:text-[#D4A373]" href="/menu">Cafe Menu</a>
+        <a class="text-[#D4A373] font-bold border-b-2 border-[#D4A373]" href="/shop">Shop Beans</a>
+        <a class="text-[#C5B5A8] hover:text-[#D4A373]" href="/contact">Contact</a>
+    </div>
+    <a href="/cart" class="relative flex items-center gap-2 px-5 py-2 bg-[#D4A373] text-[#2C1F18] rounded-full hover:bg-[#E8B88A]">
+        <span class="material-symbols-outlined text-xl">shopping_bag</span>
+        <span class="text-[10px] uppercase font-bold">Cart</span>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-[#2C1F18] text-[#D4A373] text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+    </a>
+</div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-8 py-16">
+    <div class="text-center mb-16">
+        <h1 class="text-6xl text-[#D4A373] mb-4">Small Batch Roasts</h1>
+        <p class="text-[#C5B5A8] text-lg">Delivered to your door. Ethically sourced, obsessively roasted.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Product 1 - Velvet Dusk Espresso -->
+        <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
+            <img th:src="@{/images/coffee-beans.jpg}" class="w-full h-64 object-cover"/>
+            <div class="p-6">
+                <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Velvet Dusk Espresso</h3><span>$28.00</span></div>
+                <p class="text-[#C5B5A8] text-sm my-2">Dark Roast | Ethiopia</p>
+                <div class="flex gap-2 mb-4"><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Dark Chocolate</span><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Black Cherry</span></div>
+                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Velvet Dusk Espresso" data-price="28.00" data-image="/images/coffee-beans.jpg">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Product 2 - Morning Ritual Blend -->
+        <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
+            <img th:src="@{/images/morning-ritual.jpg}" class="w-full h-64 object-cover"/>
+            <div class="p-6">
+                <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Morning Ritual Blend</h3><span>$24.00</span></div>
+                <p class="text-[#C5B5A8] text-sm my-2">Medium Roast | Colombia & Brazil</p>
+                <div class="flex gap-2 mb-4"><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Caramel</span><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Orange Zest</span></div>
+                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Morning Ritual Blend" data-price="24.00" data-image="/images/morning-ritual.jpg">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Product 3 - Highland Mist Light -->
+        <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
+            <img th:src="@{/images/ethiopia.jpg}" class="w-full h-64 object-cover"/>
+            <div class="p-6">
+                <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Highland Mist Light</h3><span>$32.00</span></div>
+                <p class="text-[#C5B5A8] text-sm my-2">Light Roast | Kenya</p>
+                <div class="flex gap-2 mb-4"><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Jasmine</span><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Honey</span></div>
+                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Highland Mist Light" data-price="32.00" data-image="/images/ethiopia.jpg">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Product 4 - Single Origin Reserve -->
+        <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
+            <img th:src="@{/images/reserve-single-origin.jpg}" class="w-full h-64 object-cover"/>
+            <div class="p-6">
+                <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Single Origin Reserve</h3><span>$36.00</span></div>
+                <p class="text-[#C5B5A8] text-sm my-2">Medium-Light | Panama</p>
+                <div class="flex gap-2 mb-4"><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Bergamot</span><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Brown Sugar</span></div>
+                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Single Origin Reserve" data-price="36.00" data-image="/images/reserve-single-origin.jpg">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Product 5 - Sun-Dried Sumatra -->
+        <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
+            <img th:src="@{/images/sumatra-sun-dried.jpg}" class="w-full h-64 object-cover"/>
+            <div class="p-6">
+                <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Sun-Dried Sumatra</h3><span>$26.00</span></div>
+                <p class="text-[#C5B5A8] text-sm my-2">Dark Roast | Indonesia</p>
+                <div class="flex gap-2 mb-4"><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Earth</span><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Cedar</span></div>
+                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Sun-Dried Sumatra" data-price="26.00" data-image="/images/sumatra-sun-dried.jpg">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Product 6 - Midnight Roast Powder -->
+        <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
+            <img th:src="@{/images/midnight-roast-powder.jpg}" class="w-full h-64 object-cover"/>
+            <div class="p-6">
+                <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Midnight Roast Powder</h3><span>$22.00</span></div>
+                <p class="text-[#C5B5A8] text-sm my-2">Extra Dark | House Blend</p>
+                <div class="flex gap-2 mb-4"><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Smoke</span><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Toasted Cocoa</span></div>
+                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Midnight Roast Powder" data-price="22.00" data-image="/images/midnight-roast-powder.jpg">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subscription Banner -->
+    <div class="mt-24 bg-[#D4A373] text-[#2C1F18] rounded-3xl p-12 text-center">
+        <h2 class="text-4xl font-headline mb-4">Never run out of the ritual.</h2>
+        <p class="mb-6">Join our 'Copper Club' subscription and get 15% off every bag.</p>
+        <a href="/subscription" class="inline-block bg-[#2C1F18] text-[#D4A373] px-8 py-3 rounded-full font-bold hover:bg-[#3D2B23]">Start Subscription</a>
+    </div>
+</main>
+
+<footer class="w-full py-16 px-8 mt-20 bg-[#1A120E] border-t border-[#D4A373]/20 text-center">
+    <p class="text-[#C5B5A8] text-sm">© 2024 Roast &amp; Ritual. Brewed with intention.</p>
+</footer>
+
+<script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); updateCartCount(); }
+    
+    function updateCartCount() { const total = cart.reduce((s,i)=> s + i.quantity, 0); document.querySelectorAll('#cart-count').forEach(el => el.textContent = total); }
+    
+    function showNotification(msg, type) { 
+        const n = document.createElement('div'); 
+        n.textContent = msg; 
+        n.style.cssText = `position:fixed;bottom:20px;right:20px;background:${type==='success'?'#D4A373':'#ba1a1a'};color:${type==='success'?'#2C1F18':'#fff'};padding:12px 24px;border-radius:50px;z-index:9999;animation:slideIn 0.3s ease;`; 
+        document.body.appendChild(n); 
+        setTimeout(() => n.remove(), 2000); 
+    }
+    
+    function addToCart(name, price, image) { 
+        const existing = cart.find(i => i.name === name); 
+        if(existing) { 
+            existing.quantity++; 
+        } else { 
+            cart.push({ name, price, quantity: 1, image: image }); 
+        } 
+        saveCart(); 
+        showNotification(`✓ ${name} added to cart!`, 'success'); 
+    }
+    
+    document.querySelectorAll('.cart-btn').forEach(btn => { 
+        btn.addEventListener('click', () => { 
+            addToCart(btn.dataset.name, parseFloat(btn.dataset.price), btn.dataset.image); 
+        }); 
+    });
+    
+    updateCartCount();
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+@"D:\Edu\ruhuna uni\projects\apache-maven-3.9.16-bin\apache-maven-3.9.16\bin\mvn.cmd" %* 

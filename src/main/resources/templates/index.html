@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { font-family: 'Manrope', sans-serif; background-color: #2C1F18; color: #FAF7F2; }
+    h1, h2, h3, .logo { font-family: 'Newsreader', serif; }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+</style>
+</head>
+<body>
+
+<!-- TopNavBar -->
+<nav class="w-full sticky top-0 z-50 bg-[#2C1F18]/95 backdrop-blur-md border-b border-[#D4A373]/20">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
+    <div class="text-2xl font-serif italic text-[#D4A373]"><a href="/">Roast & Ritual</a></div>
+    <div class="hidden md:flex items-center gap-8">
+        <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors" href="/">Home</a>
+        <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors" href="/menu">Cafe Menu</a>
+        <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors" href="/shop">Shop Beans</a>
+        <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors" href="/contact">Contact</a>
+    </div>
+    <a href="/cart" class="relative flex items-center gap-2 px-5 py-2 bg-[#D4A373] text-[#2C1F18] rounded-full hover:bg-[#E8B88A] transition-all">
+        <span class="material-symbols-outlined text-xl">shopping_bag</span>
+        <span class="text-[10px] uppercase font-bold">Cart</span>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-[#2C1F18] text-[#D4A373] text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+    </a>
+</div>
+</nav>
+
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-[819px] flex items-center overflow-hidden bg-[#1A120E]">
+    <div class="absolute inset-0 opacity-30"><img th:src="@{/images/hero-coffee.jpg}" class="w-full h-full object-cover"/></div>
+    <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+        <div class="space-y-6">
+            <span class="text-xs uppercase tracking-[0.2em] text-[#D4A373]">Est. 2014</span>
+            <h1 class="text-6xl md:text-8xl leading-[0.9] text-[#D4A373]">The Soul in <br/><span class="italic">Every Sip</span></h1>
+            <p class="text-lg md:text-xl text-[#C5B5A8] max-w-md">Roast &amp; Ritual began with a single copper roaster and a quiet obsession with the perfect bloom.</p>
+            <div class="flex gap-4">
+                <a href="/menu" class="bg-[#D4A373] text-[#2C1F18] px-8 py-3 rounded-full font-medium hover:bg-[#E8B88A]">View Menu</a>
+                <a href="/shop" class="border border-[#D4A373] text-[#D4A373] px-8 py-3 rounded-full font-medium hover:bg-[#D4A373] hover:text-[#2C1F18]">Shop Now</a>
+            </div>
+        </div>
+        <div class="aspect-[4/5] overflow-hidden rounded-lg shadow-xl"><img th:src="@{/images/hero-coffee.jpg}" class="w-full h-full object-cover"/></div>
+    </div>
+</section>
+
+<!-- Our History -->
+<section class="py-32 bg-[#362419]">
+    <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+        <div class="md:col-span-7"><img th:src="@{/images/coffee-beans.jpg}" class="w-full h-[500px] object-cover rounded-lg shadow-2xl"/></div>
+        <div class="md:col-span-5 space-y-8 md:-ml-24 bg-[#3D2B23] p-12 rounded-xl shadow-xl border border-[#D4A373]/20">
+            <h2 class="text-4xl text-[#D4A373]">A Decade of <br/>Defining Rituals</h2>
+            <p class="text-[#C5B5A8]">It started in a small garage in Portland. We believe that coffee isn't just a drink—it's a moment of presence.</p>
+        </div>
+    </div>
+</section>
+
+<!-- The Roasting Process -->
+<section class="py-32 bg-[#2C1F18]">
+    <div class="max-w-7xl mx-auto px-8">
+        <h2 class="text-5xl text-center text-[#D4A373] mb-16 italic">The Roasting Process</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-[#3D2B23] p-10 rounded-xl text-center border border-[#D4A373]/20">
+                <div class="w-12 h-12 rounded-full bg-[#D4A373] text-[#2C1F18] flex items-center justify-center text-xl font-bold mx-auto mb-4">01</div>
+                <h3 class="text-2xl text-[#D4A373] mb-3">Ethical Sourcing</h3>
+                <p class="text-[#C5B5A8]">Direct-trade relationships with farmers.</p>
+            </div>
+            <div class="bg-[#D4A373] text-[#2C1F18] p-10 rounded-xl text-center">
+                <div class="w-12 h-12 rounded-full bg-[#2C1F18] text-[#D4A373] flex items-center justify-center text-xl font-bold mx-auto mb-4">02</div>
+                <h3 class="text-2xl mb-3">Small Batch Roasting</h3>
+                <p>Each batch limited to 15kg for precision.</p>
+            </div>
+            <div class="bg-[#3D2B23] p-10 rounded-xl text-center border border-[#D4A373]/20">
+                <div class="w-12 h-12 rounded-full bg-[#D4A373] text-[#2C1F18] flex items-center justify-center text-xl font-bold mx-auto mb-4">03</div>
+                <h3 class="text-2xl text-[#D4A373] mb-3">Sensory Cupping</h3>
+                <p class="text-[#C5B5A8]">Three rounds of blind cupping.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter CTA -->
+<section class="py-32 bg-[#1A120E]">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <h2 class="text-4xl text-[#D4A373] mb-4">Bring the ritual home.</h2>
+        <p class="text-[#C5B5A8] mb-8">Join our community and receive brewing guides and exclusive offers.</p>
+        <form action="/subscribe" method="post" class="flex justify-center gap-4 flex-wrap">
+            <input type="email" name="email" placeholder="Your email address" class="px-6 py-3 rounded-full bg-[#362419] border border-[#D4A373]/20 text-[#FAF7F2] w-80" required/>
+            <button type="submit" class="bg-[#D4A373] text-[#2C1F18] px-8 py-3 rounded-full font-medium hover:bg-[#E8B88A]">Subscribe</button>
+        </form>
+        <p th:if="${successMessage}" th:text="${successMessage}" class="text-[#D4A373] mt-4"></p>
+    </div>
+</section>
+</main>
+
+<footer class="w-full py-16 px-8 bg-[#1A120E] border-t border-[#D4A373]/20 text-center">
+    <p class="text-[#C5B5A8] text-sm">© 2024 Roast &amp; Ritual. Brewed with intention.</p>
+</footer>
+
+<script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    function updateCartCount() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.querySelectorAll('#cart-count').forEach(el => el.textContent = totalItems);
+        localStorage.setItem('cartCount', totalItems);
+    }
+    function showNotification(message, type) {
+        const n = document.createElement('div');
+        n.textContent = message;
+        n.style.cssText = `position:fixed;bottom:20px;right:20px;background:${type === 'success' ? '#D4A373' : '#ba1a1a'};color:${type === 'success' ? '#2C1F18' : '#fff'};padding:12px 24px;border-radius:50px;z-index:9999;animation:slideIn 0.3s ease;`;
+        document.body.appendChild(n);
+        setTimeout(() => n.remove(), 2000);
+    }
+    updateCartCount();
+</script>
+</body>
+</html>

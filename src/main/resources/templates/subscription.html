@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Subscription - Roast &amp; Ritual</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { background-color: #2C1F18; font-family: 'Manrope', sans-serif; color: #FAF7F2; }
+    h1, h2, h3 { font-family: 'Newsreader', serif; }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+</style>
+</head>
+<body>
+
+<nav class="w-full sticky top-0 z-50 bg-[#2C1F18]/95 backdrop-blur-md border-b border-[#D4A373]/20">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
+    <div class="text-2xl font-serif italic text-[#D4A373]"><a href="/">Roast & Ritual</a></div>
+    <div class="hidden md:flex items-center gap-8">
+        <a class="text-[#C5B5A8] hover:text-[#D4A373]" href="/">Home</a>
+        <a class="text-[#C5B5A8] hover:text-[#D4A373]" href="/menu">Cafe Menu</a>
+        <a class="text-[#C5B5A8] hover:text-[#D4A373]" href="/shop">Shop Beans</a>
+        <a class="text-[#C5B5A8] hover:text-[#D4A373]" href="/contact">Contact</a>
+    </div>
+    <a href="/cart" class="relative flex items-center gap-2 px-5 py-2 bg-[#D4A373] text-[#2C1F18] rounded-full hover:bg-[#E8B88A]">
+        <span class="material-symbols-outlined text-xl">shopping_bag</span>
+        <span class="text-[10px] uppercase font-bold">Cart</span>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-[#2C1F18] text-[#D4A373] text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+    </a>
+</div>
+</nav>
+
+<main class="max-w-6xl mx-auto px-8 py-16">
+    <div class="text-center mb-12">
+        <h1 class="text-6xl text-[#D4A373] mb-4">The Copper Club</h1>
+        <p class="text-[#C5B5A8] text-xl">Never run out of the ritual</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <!-- Plan 1 -->
+        <div class="bg-[#362419] rounded-2xl p-8 text-center border border-[#D4A373]/20">
+            <img th:src="@{/images/coffee-beans.jpg}" class="w-32 h-32 object-cover rounded-full mx-auto mb-4"/>
+            <h3 class="text-2xl text-[#D4A373] mb-2">Starter</h3>
+            <p class="text-4xl text-[#D4A373] font-bold mb-4">$22<span class="text-sm">/mo</span></p>
+            <p class="text-[#C5B5A8] text-sm mb-6">1 bag per month<br>Free shipping</p>
+            <button class="sub-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold hover:bg-[#E8B88A]" data-plan="Starter" data-price="22" data-image="/images/coffee-beans.jpg">Subscribe</button>
+        </div>
+        
+        <!-- Plan 2 - Popular -->
+        <div class="bg-[#362419] rounded-2xl p-8 text-center border-2 border-[#D4A373] relative">
+            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#D4A373] text-[#2C1F18] text-xs px-3 py-1 rounded-full">Popular</div>
+            <img th:src="@{/images/morning-ritual.jpg}" class="w-32 h-32 object-cover rounded-full mx-auto mb-4"/>
+            <h3 class="text-2xl text-[#D4A373] mb-2">Ritual</h3>
+            <p class="text-4xl text-[#D4A373] font-bold mb-4">$42<span class="text-sm">/mo</span></p>
+            <p class="text-[#C5B5A8] text-sm mb-6">2 bags per month<br>Free shipping + 10% off</p>
+            <button class="sub-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold hover:bg-[#E8B88A]" data-plan="Ritual" data-price="42" data-image="/images/morning-ritual.jpg">Subscribe</button>
+        </div>
+        
+        <!-- Plan 3 -->
+        <div class="bg-[#362419] rounded-2xl p-8 text-center border border-[#D4A373]/20">
+            <img th:src="@{/images/ethiopia.jpg}" class="w-32 h-32 object-cover rounded-full mx-auto mb-4"/>
+            <h3 class="text-2xl text-[#D4A373] mb-2">Connoisseur</h3>
+            <p class="text-4xl text-[#D4A373] font-bold mb-4">$82<span class="text-sm">/mo</span></p>
+            <p class="text-[#C5B5A8] text-sm mb-6">4 bags per month<br>Free shipping + 15% off</p>
+            <button class="sub-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold hover:bg-[#E8B88A]" data-plan="Connoisseur" data-price="82" data-image="/images/ethiopia.jpg">Subscribe</button>
+        </div>
+    </div>
+    
+    <div class="bg-[#362419] rounded-2xl p-8 text-center border border-[#D4A373]/20">
+        <h2 class="text-2xl text-[#D4A373] mb-6">Why Subscribe?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div><span class="material-symbols-outlined text-[#D4A373] text-4xl">local_shipping</span><p class="mt-2 text-[#C5B5A8]">Free Delivery</p></div>
+            <div><span class="material-symbols-outlined text-[#D4A373] text-4xl">percent</span><p class="mt-2 text-[#C5B5A8]">Member Discounts</p></div>
+            <div><span class="material-symbols-outlined text-[#D4A373] text-4xl">coffee</span><p class="mt-2 text-[#C5B5A8]">Fresh Roasted</p></div>
+        </div>
+    </div>
+</main>
+
+<footer class="w-full py-16 px-8 mt-20 bg-[#1A120E] border-t border-[#D4A373]/20 text-center">
+    <p class="text-[#C5B5A8] text-sm">© 2024 Roast &amp; Ritual. Brewed with intention.</p>
+</footer>
+
+<script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); updateCartCount(); }
+    
+    function updateCartCount() { const total = cart.reduce((s,i)=> s + i.quantity, 0); document.querySelectorAll('#cart-count').forEach(el => el.textContent = total); }
+    
+    function showNotification(msg) { 
+        const n = document.createElement('div'); 
+        n.textContent = msg; 
+        n.style.cssText = `position:fixed;bottom:20px;right:20px;background:#D4A373;color:#2C1F18;padding:12px 24px;border-radius:50px;z-index:9999;animation:slideIn 0.3s ease;`; 
+        document.body.appendChild(n); 
+        setTimeout(() => n.remove(), 2000); 
+    }
+    
+    function addToCart(name, price, image) { 
+        const existing = cart.find(i => i.name === name); 
+        if(existing) { 
+            existing.quantity++; 
+        } else { 
+            cart.push({ name, price, quantity: 1, image: image }); 
+        } 
+        saveCart(); 
+        showNotification(`✓ ${name} subscription added to cart!`); 
+    }
+    
+    document.querySelectorAll('.sub-btn').forEach(btn => { 
+        btn.addEventListener('click', () => { 
+            addToCart(`${btn.dataset.plan} Subscription (Monthly)`, parseFloat(btn.dataset.price), btn.dataset.image); 
+        }); 
+    });
+    
+    updateCartCount();
+</script>
+</body>
+</html>

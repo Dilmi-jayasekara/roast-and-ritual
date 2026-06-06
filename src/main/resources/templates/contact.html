@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#f3f0f0",
+                    "tertiary-fixed-dim": "#D4A373",
+                    "surface-tint": "#D4A373",
+                    "outline": "#827472",
+                    "on-secondary-fixed": "#FAF7F2",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#4A372E",
+                    "primary-fixed-dim": "#D4A373",
+                    "primary-fixed": "#E8B88A",
+                    "tertiary": "#D4A373",
+                    "surface-variant": "#3D2B23",
+                    "on-secondary": "#1A120E",
+                    "on-background": "#FAF7F2",
+                    "on-secondary-container": "#D4A373",
+                    "outline-variant": "#5C4036",
+                    "primary": "#D4A373",
+                    "on-primary-container": "#FAF7F2",
+                    "surface-container-lowest": "#2C1F18",
+                    "secondary-fixed": "#5C4036",
+                    "inverse-primary": "#D4A373",
+                    "background": "#2C1F18",
+                    "tertiary-container": "#3D2B23",
+                    "secondary": "#8B694E",
+                    "inverse-surface": "#FAF7F2",
+                    "surface-container-low": "#362419",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#D4A373",
+                    "on-surface": "#FAF7F2",
+                    "surface-container-highest": "#4A372E",
+                    "on-tertiary": "#1A120E",
+                    "surface": "#2C1F18",
+                    "surface-bright": "#3D2B23",
+                    "on-primary-fixed-variant": "#FAF7F2",
+                    "secondary-container": "#4A372E",
+                    "on-primary-fixed": "#FAF7F2",
+                    "tertiary-fixed": "#D4A373",
+                    "surface-container": "#362419",
+                    "on-surface-variant": "#C5B5A8",
+                    "on-secondary-fixed-variant": "#FAF7F2",
+                    "surface-dim": "#1A120E",
+                    "on-error-container": "#93000a",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#FAF7F2",
+                    "on-tertiary-container": "#D4A373",
+                    "secondary-fixed-dim": "#D4A373",
+                    "on-primary": "#2C1F18",
+                    "primary-container": "#D4A373"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.25rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader", "serif"],
+                    "body": ["Manrope", "sans-serif"],
+                    "label": ["Manrope", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .serif-italic { 
+            font-family: 'Newsreader', serif; 
+            font-style: italic; 
+        }
+        body {
+            background-color: #2C1F18;
+        }
+        /* Success message animation */
+        .success-message {
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<!-- TopNavBar -->
+<nav class="w-full sticky top-0 z-50 bg-[#2C1F18]/95 backdrop-blur-md border-b border-[#D4A373]/20">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
+    <div class="text-2xl font-serif italic text-[#D4A373] cursor-pointer">
+        <a href="/">Roast &amp; Ritual</a>
+    </div>
+    <div class="hidden md:flex items-center space-x-8">
+        <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors font-['Newsreader'] tracking-tight text-lg" href="/">Home</a>
+        <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors font-['Newsreader'] tracking-tight text-lg" href="/menu">Cafe Menu</a>
+        <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors font-['Newsreader'] tracking-tight text-lg" href="/shop">Shop Beans</a>
+        <a class="text-[#D4A373] font-bold border-b-2 border-[#D4A373] pb-1 font-['Newsreader'] tracking-tight text-lg" href="/contact">Contact</a>
+    </div>
+    <div class="flex items-center space-x-4">
+        <a href="/shop" class="flex items-center space-x-2 text-[#D4A373] hover:opacity-80 transition-all duration-300 cursor-pointer active:scale-95">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <span class="font-['Newsreader'] tracking-tight text-lg">Cart</span>
+        </a>
+    </div>
+</div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-8 py-16 md:py-24">
+    <!-- Success Message Display -->
+    <div th:if="${successMessage}" class="success-message mb-8 p-4 bg-[#D4A373]/20 border border-[#D4A373] rounded-xl text-center">
+        <p th:text="${successMessage}" class="text-[#D4A373] font-medium"></p>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="mb-20 text-center md:text-left max-w-3xl">
+        <span class="label-md uppercase tracking-[0.2em] text-[#D4A373] text-xs mb-4 block">Visit the Roastery</span>
+        <h1 class="font-headline text-5xl md:text-7xl text-[#D4A373] leading-[1.1] mb-8">
+            Come for the aroma,<br/><span class="serif-italic">stay for the ritual.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-[#C5B5A8] leading-relaxed">
+            Our doors are open to every curious soul. Whether you're here for a focused pour-over or a quiet corner to write, we've prepared a space that honors the bean and the breather alike.
+        </p>
+    </header>
+
+    <!-- Bento Grid Layout -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        
+        <!-- Map Placeholder / Image -->
+        <div class="md:col-span-8 rounded-3xl overflow-hidden relative min-h-[400px] shadow-sm group">
+            <img th:src="@{/images/contact-cafe-interior.jpg}" alt="Coffee shop interior" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#2C1F18]/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-8 left-8 text-white">
+                <div class="flex items-center space-x-2 mb-2">
+                    <span class="material-symbols-outlined text-[#D4A373]">location_on</span>
+                    <span class="font-label tracking-wider text-sm uppercase text-[#D4A373]">Find Us</span>
+                </div>
+                <h3 class="font-headline text-3xl text-[#D4A373]">1245 Gibbons Lane, Portland</h3>
+            </div>
+        </div>
+
+        <!-- Hours & Info -->
+        <div class="md:col-span-4 bg-[#362419] rounded-3xl p-8 flex flex-col justify-between border border-[#D4A373]/20">
+            <div>
+                <h4 class="font-headline text-2xl mb-8 text-[#D4A373]">Operating Hours</h4>
+                <ul class="space-y-4">
+                    <li class="flex justify-between items-center border-b border-[#5C4036] pb-4">
+                        <span class="font-medium text-[#C5B5A8]">Mon — Fri</span>
+                        <span class="text-[#C5B5A8]">07:00 — 19:00</span>
+                    </li>
+                    <li class="flex justify-between items-center border-b border-[#5C4036] pb-4">
+                        <span class="font-medium text-[#C5B5A8]">Saturday</span>
+                        <span class="text-[#C5B5A8]">08:00 — 20:00</span>
+                    </li>
+                    <li class="flex justify-between items-center pb-4">
+                        <span class="font-medium text-[#C5B5A8]">Sunday</span>
+                        <span class="text-[#C5B5A8]">09:00 — 17:00</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="mt-12 bg-[#2C1F18] p-6 rounded-2xl border border-[#D4A373]/20">
+                <h5 class="font-label text-xs uppercase tracking-widest text-[#D4A373] mb-2">The Ritual Direct</h5>
+                <p class="font-headline text-xl text-[#D4A373]">+1 (503) 555-0192</p>
+            </div>
+        </div>
+
+        <!-- Contact Form - UPDATED with proper action and name attributes -->
+        <div class="md:col-span-7 bg-[#2C1F18] rounded-3xl p-8 md:p-12 shadow-sm border border-[#D4A373]/20">
+            <h4 class="font-headline text-3xl mb-4 text-[#D4A373]">Inquiries &amp; Wholesale</h4>
+            <p class="text-[#C5B5A8] mb-10">Have a question about our roasts or interested in partnering? Send us a note and we'll get back to you within 24 hours.</p>
+            
+            <!-- UPDATED FORM - action points to Spring Boot endpoint -->
+            <form th:action="@{/contact/submit}" method="post" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="font-label text-xs uppercase tracking-widest text-[#D4A373] px-1">Your Name</label>
+                        <input name="name" class="w-full bg-[#362419] border border-[#5C4036] rounded-xl p-4 focus:ring-1 focus:ring-[#D4A373] focus:bg-[#3D2B23] transition-all text-[#FAF7F2] placeholder:text-[#C5B5A8]/50" placeholder="Elias Thorne" type="text" required/>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="font-label text-xs uppercase tracking-widest text-[#D4A373] px-1">Email Address</label>
+                        <input name="email" class="w-full bg-[#362419] border border-[#5C4036] rounded-xl p-4 focus:ring-1 focus:ring-[#D4A373] focus:bg-[#3D2B23] transition-all text-[#FAF7F2] placeholder:text-[#C5B5A8]/50" placeholder="elias@ritual.com" type="email" required/>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="font-label text-xs uppercase tracking-widest text-[#D4A373] px-1">Subject</label>
+                    <select name="subject" class="w-full bg-[#362419] border border-[#5C4036] rounded-xl p-4 focus:ring-1 focus:ring-[#D4A373] focus:bg-[#3D2B23] transition-all text-[#FAF7F2] appearance-none">
+                        <option class="bg-[#362419]">General Inquiry</option>
+                        <option class="bg-[#362419]">Wholesale Opportunities</option>
+                        <option class="bg-[#362419]">Private Events</option>
+                        <option class="bg-[#362419]">Feedback</option>
+                    </select>
+                </div>
+                <div class="space-y-2">
+                    <label class="font-label text-xs uppercase tracking-widest text-[#D4A373] px-1">Your Message</label>
+                    <textarea name="message" class="w-full bg-[#362419] border border-[#5C4036] rounded-xl p-4 focus:ring-1 focus:ring-[#D4A373] focus:bg-[#3D2B23] transition-all text-[#FAF7F2] placeholder:text-[#C5B5A8]/50" placeholder="Tell us what's on your mind..." rows="5" required></textarea>
+                </div>
+                <button class="bg-[#D4A373] text-[#2C1F18] px-10 py-4 rounded-full font-label tracking-widest uppercase text-sm hover:bg-[#E8B88A] active:scale-95 transition-all w-full md:w-auto" type="submit">
+                    Send Message
+                </button>
+            </form>
+        </div>
+
+        <!-- Experience Card -->
+        <div class="md:col-span-5 grid grid-rows-2 gap-6">
+            <div class="bg-[#D4A373] text-[#2C1F18] rounded-3xl p-8 relative overflow-hidden flex flex-col justify-end">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+                <span class="material-symbols-outlined text-4xl mb-4">coffee_maker</span>
+                <h4 class="font-headline text-2xl mb-2">Brew Workshops</h4>
+                <p class="text-[#2C1F18]/70 text-sm">Join our head roaster every Saturday morning for a deep dive into the art of the perfect extraction.</p>
+            </div>
+            <div class="rounded-3xl overflow-hidden relative group min-h-[200px]">
+                <img th:src="@{/images/contact-barista-pouring.jpg}" alt="Barista pouring coffee" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
+                <div class="absolute inset-0 bg-[#D4A373]/20"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Location Map Placeholder Section -->
+    <section class="mt-24">
+        <div class="w-full h-[500px] bg-[#362419] rounded-[2rem] overflow-hidden shadow-inner relative flex items-center justify-center border border-[#D4A373]/20">
+            <div class="absolute inset-0 opacity-30 pointer-events-none">
+                <img th:src="@{/images/contact-map-bg-texture.jpg}" alt="Map background" class="w-full h-full object-cover"/>
+            </div>
+            <div class="relative z-10 text-center p-8 bg-[#2C1F18]/90 backdrop-blur-md rounded-3xl shadow-xl max-w-sm border border-[#D4A373]/20">
+                <span class="material-symbols-outlined text-[#D4A373] text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">map</span>
+                <h4 class="font-headline text-2xl mb-2 text-[#D4A373]">Find Us on the Map</h4>
+                <p class="text-sm text-[#C5B5A8] mb-6">We're tucked away in the historic Pearl District, right between the old library and the park.</p>
+                <a href="https://maps.google.com/?q=1245+Gibbons+Lane+Portland" target="_blank" class="inline-block bg-[#D4A373] text-[#2C1F18] px-6 py-3 rounded-full font-label text-xs uppercase tracking-widest hover:bg-[#E8B88A] transition-colors">Open in Maps</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="w-full py-16 px-8 mt-20 bg-[#1A120E] border-t border-[#D4A373]/20">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-7xl mx-auto text-center md:text-left">
+        <div>
+            <span class="font-['Newsreader'] text-3xl text-[#D4A373] mb-4 block">Roast &amp; Ritual</span>
+            <p class="font-['Manrope'] uppercase tracking-[0.1em] text-[10px] text-[#C5B5A8]">© 2024 Roast &amp; Ritual Artisanal Roastery. Brewed with intention.</p>
+        </div>
+        <div class="flex flex-col space-y-4">
+            <span class="font-['Manrope'] uppercase tracking-[0.1em] text-[10px] text-[#D4A373] mb-2">Connect</span>
+            <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors font-['Manrope'] uppercase tracking-[0.1em] text-[10px]" href="#">Instagram</a>
+            <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors font-['Manrope'] uppercase tracking-[0.1em] text-[10px]" href="#">Newsletter</a>
+            <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors font-['Manrope'] uppercase tracking-[0.1em] text-[10px]" href="#">Journal</a>
+        </div>
+        <div class="flex flex-col space-y-4">
+            <span class="font-['Manrope'] uppercase tracking-[0.1em] text-[10px] text-[#D4A373] mb-2">Navigation</span>
+            <div class="flex flex-col space-y-3">
+                <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors font-['Manrope'] uppercase tracking-[0.1em] text-[10px]" href="#">Privacy Policy</a>
+                <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors font-['Manrope'] uppercase tracking-[0.1em] text-[10px]" href="#">Shipping Info</a>
+                <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors font-['Manrope'] uppercase tracking-[0.1em] text-[10px]" href="#">Wholesale</a>
+                <a class="text-[#C5B5A8] hover:text-[#D4A373] transition-colors font-['Manrope'] uppercase tracking-[0.1em] text-[10px]" href="#">Careers</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
