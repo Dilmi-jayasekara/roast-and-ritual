@@ -40,7 +40,6 @@ public class HomeController {
         return "cart";
     }
     
-    // ADD THIS METHOD - Checkout page
     @GetMapping("/checkout")
     public String checkout(Model model) {
         return "checkout";
@@ -51,7 +50,6 @@ public class HomeController {
         return "subscription";
     }
     
-    // Handle contact form submission
     @PostMapping("/contact/submit")
     public String submitContact(
             @RequestParam(required = false) String name,
@@ -76,7 +74,6 @@ public class HomeController {
         return "contact";
     }
     
-    // Handle newsletter subscript
     @PostMapping("/subscribe")
     public String subscribe(@RequestParam String email, Model model) {
         System.out.println("New subscriber: " + email);
@@ -84,7 +81,6 @@ public class HomeController {
         return "index";
     }
     
-    // API endpoint for adding to cart
     @PostMapping("/api/cart/add")
     @ResponseBody
     public String addToCart(@RequestParam String productName, @RequestParam double price) {

@@ -37,6 +37,15 @@
 <main class="max-w-7xl mx-auto px-8 py-16">
     <h1 class="text-5xl text-[#D4A373] mb-8">Your Cart</h1>
     
+    <!-- Info Note -->
+    <div class="bg-[#D4A373]/10 border border-[#D4A373]/30 rounded-xl p-4 mb-6">
+        <p class="text-sm text-[#C5B5A8]">
+            <span class="font-bold text-[#D4A373]">📋 Order Info:</span> 
+            ☕ Cafe menu items are for <span class="text-[#D4A373] font-medium">in-store pickup only</span>. 
+            📦 Shop items will be <span class="text-[#D4A373] font-medium">shipped to your address</span>.
+        </p>
+    </div>
+    
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <!-- Cart Items -->
         <div class="lg:col-span-2">
@@ -44,7 +53,10 @@
                 <div id="empty-cart" class="text-center py-12 bg-[#362419] rounded-2xl border border-[#D4A373]/20">
                     <span class="material-symbols-outlined text-6xl text-[#D4A373] mb-4">shopping_bag</span>
                     <p class="text-[#C5B5A8] text-lg">Your cart is empty</p>
-                    <a href="/shop" class="inline-block mt-4 bg-[#D4A373] text-[#2C1F18] px-6 py-2 rounded-full">Continue Shopping</a>
+                    <div class="flex gap-4 justify-center mt-4">
+                        <a href="/menu" class="inline-block bg-[#D4A373] text-[#2C1F18] px-6 py-2 rounded-full">Browse Menu</a>
+                        <a href="/shop" class="inline-block bg-[#362419] text-[#D4A373] border border-[#D4A373] px-6 py-2 rounded-full">Shop Beans</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,12 +65,45 @@
         <div class="lg:col-span-1">
             <div class="bg-[#362419] rounded-2xl p-6 border border-[#D4A373]/20 sticky top-24">
                 <h2 class="text-2xl text-[#D4A373] mb-6">Order Summary</h2>
+                
+                <!-- Delivery Method Selection - Only show if both types are not mixed -->
+                <div id="delivery-selection" class="mb-6 p-4 bg-[#2C1F18] rounded-xl">
+                    <label class="block text-[#D4A373] text-sm mb-3">📍 Delivery Method</label>
+                    <div id="pickup-option" class="flex items-center gap-3 p-2 rounded-lg mb-2">
+                        <input type="radio" name="deliveryMethod" id="pickup" value="pickup" class="w-4 h-4 accent-[#D4A373]">
+                        <label for="pickup" class="flex-1 cursor-pointer">
+                            <span class="font-medium">Pick up in store</span>
+                            <span class="text-xs text-[#C5B5A8] block">Free - Ready in 15 minutes</span>
+                            <span class="text-xs text-[#D4A373] block mt-1">✓ For Cafe Menu items only</span>
+                        </label>
+                    </div>
+                    <div id="delivery-option" class="flex items-center gap-3 p-2 rounded-lg">
+                        <input type="radio" name="deliveryMethod" id="delivery" value="delivery" class="w-4 h-4 accent-[#D4A373]">
+                        <label for="delivery" class="flex-1 cursor-pointer">
+                            <span class="font-medium">Home delivery</span>
+                            <span class="text-xs text-[#C5B5A8] block">$5.99 - For Shop items only</span>
+                            <span class="text-xs text-[#D4A373] block mt-1">✓ For Coffee Beans & Equipment only</span>
+                        </label>
+                    </div>
+                    <div id="mixed-cart-warning" class="hidden mt-3 p-2 bg-[#ba1a1a]/20 rounded-lg text-center">
+                        <p class="text-xs text-[#ba1a1a]">⚠️ Your cart contains both Cafe Menu and Shop items. Please place separate orders.</p>
+                    </div>
+                </div>
+                
                 <div class="space-y-3 mb-6">
                     <div class="flex justify-between"><span class="text-[#C5B5A8]">Subtotal</span><span id="subtotal">$0.00</span></div>
-                    <div class="flex justify-between"><span class="text-[#C5B5A8]">Shipping</span><span>Calculated at checkout</span></div>
-                    <div class="border-t border-[#5C4036] pt-3 mt-3"><div class="flex justify-between font-bold"><span class="text-[#D4A373]">Total</span><span id="total" class="text-[#D4A373] text-xl">$0.00</span></div></div>
+                    <div class="flex justify-between" id="delivery-fee-row">
+                        <span class="text-[#C5B5A8]">Delivery Fee</span>
+                        <span id="delivery-fee">$0.00</span>
+                    </div>
+                    <div class="border-t border-[#5C4036] pt-3 mt-3">
+                        <div class="flex justify-between font-bold">
+                            <span class="text-[#D4A373]">Total</span>
+                            <span id="total" class="text-[#D4A373] text-xl">$0.00</span>
+                        </div>
+                    </div>
                 </div>
-                <!-- UPDATED: Changed from button to link to checkout page -->
+                
                 <a id="checkout-btn" href="/checkout" class="block w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-center hover:bg-[#E8B88A] transition-all disabled:opacity-50 disabled:cursor-not-allowed pointer-events-auto">Proceed to Checkout</a>
                 <a href="/shop" class="block text-center mt-4 text-[#D4A373] text-sm hover:underline">Continue Shopping →</a>
             </div>
@@ -72,10 +117,84 @@
 
 <script>
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let deliveryMethod = 'pickup';
+    let deliveryFee = 0;
     
     function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); updateCartCount(); }
     
     function updateCartCount() { const total = cart.reduce((s,i)=> s + i.quantity, 0); document.querySelectorAll('#cart-count').forEach(el => el.textContent = total); }
+    
+    // Check if cart has menu items (price < 20 and not subscription)
+    function hasMenuItems() {
+        return cart.some(item => item.type === 'menu' || (item.price < 20 && !item.name.includes('Subscription')));
+    }
+    
+    // Check if cart has shop items (price >= 20 or subscription)
+    function hasShopItems() {
+        return cart.some(item => item.type === 'shop' || item.price >= 20 || item.name.includes('Subscription'));
+    }
+    
+    function updateDeliveryOptions() {
+        const hasMenu = hasMenuItems();
+        const hasShop = hasShopItems();
+        const pickupRadio = document.getElementById('pickup');
+        const deliveryRadio = document.getElementById('delivery');
+        const mixedWarning = document.getElementById('mixed-cart-warning');
+        
+        if (hasMenu && hasShop) {
+            // Mixed cart - disable both and show warning
+            pickupRadio.disabled = true;
+            deliveryRadio.disabled = true;
+            mixedWarning.classList.remove('hidden');
+            document.getElementById('checkout-btn').style.opacity = '0.5';
+            document.getElementById('checkout-btn').style.pointerEvents = 'none';
+        } else if (hasMenu && !hasShop) {
+            // Only menu items - force pickup
+            pickupRadio.disabled = false;
+            deliveryRadio.disabled = true;
+            deliveryRadio.parentElement.style.opacity = '0.5';
+            mixedWarning.classList.add('hidden');
+            deliveryMethod = 'pickup';
+            deliveryFee = 0;
+            pickupRadio.checked = true;
+            document.getElementById('checkout-btn').style.opacity = '1';
+            document.getElementById('checkout-btn').style.pointerEvents = 'auto';
+        } else if (!hasMenu && hasShop) {
+            // Only shop items - force delivery
+            pickupRadio.disabled = true;
+            pickupRadio.parentElement.style.opacity = '0.5';
+            deliveryRadio.disabled = false;
+            mixedWarning.classList.add('hidden');
+            deliveryMethod = 'delivery';
+            deliveryFee = 5.99;
+            deliveryRadio.checked = true;
+            document.getElementById('checkout-btn').style.opacity = '1';
+            document.getElementById('checkout-btn').style.pointerEvents = 'auto';
+        } else {
+            // Empty cart
+            pickupRadio.disabled = false;
+            deliveryRadio.disabled = false;
+            mixedWarning.classList.add('hidden');
+        }
+        
+        document.getElementById('delivery-fee').textContent = `$${deliveryFee.toFixed(2)}`;
+        localStorage.setItem('deliveryMethod', deliveryMethod);
+        localStorage.setItem('deliveryFee', deliveryFee);
+        updateCartDisplay();
+    }
+    
+    function selectDelivery(method) {
+        if ((method === 'pickup' && hasShopItems() && !hasMenuItems()) || 
+            (method === 'delivery' && hasMenuItems() && !hasShopItems())) {
+            return; // Invalid selection
+        }
+        deliveryMethod = method;
+        deliveryFee = method === 'delivery' ? 5.99 : 0;
+        document.getElementById('delivery-fee').textContent = `$${deliveryFee.toFixed(2)}`;
+        localStorage.setItem('deliveryMethod', deliveryMethod);
+        localStorage.setItem('deliveryFee', deliveryFee);
+        updateCartDisplay();
+    }
     
     function updateCartDisplay() {
         const container = document.getElementById('cart-items');
@@ -107,11 +226,14 @@
         cart.forEach((item, idx) => {
             const itemTotal = item.price * item.quantity;
             subtotal += itemTotal;
+            const isShopItem = item.type === 'shop' || item.price >= 20 || item.name.includes('Subscription');
+            
             html += `<div class="bg-[#2C1F18] rounded-xl p-4 flex gap-4 items-center border border-[#D4A373]/20">
                 <img src="${item.image || '/images/coffee-beans.jpg'}" class="w-20 h-20 object-cover rounded-lg">
                 <div class="flex-1">
                     <h3 class="text-[#D4A373] font-bold">${escapeHtml(item.name)}</h3>
                     <p class="text-[#C5B5A8] text-sm">$${item.price.toFixed(2)} each</p>
+                    <span class="text-xs ${isShopItem ? 'text-green-500' : 'text-[#D4A373]'}">${isShopItem ? '📦 Ships to home only' : '🏠 In-store pickup only'}</span>
                     <div class="flex items-center gap-3 mt-2">
                         <button onclick="updateQty(${idx}, -1)" class="bg-[#362419] text-[#D4A373] w-8 h-8 rounded-full hover:bg-[#4A372E]">-</button>
                         <span class="w-8 text-center">${item.quantity}</span>
@@ -125,10 +247,12 @@
         
         container.innerHTML = html;
         subtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
-        totalSpan.textContent = `$${subtotal.toFixed(2)}`;
+        const totalAmount = subtotal + deliveryFee;
+        totalSpan.textContent = `$${totalAmount.toFixed(2)}`;
+        
+        updateDeliveryOptions();
     }
     
-    // Helper function to escape HTML
     function escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
@@ -148,7 +272,6 @@
         cart.splice(index,1); 
         saveCart(); 
         updateCartDisplay(); 
-        // Show notification
         showNotification('Item removed from cart', 'info');
     }
     
@@ -168,6 +291,10 @@
             setTimeout(() => notification.remove(), 300);
         }, 2000);
     }
+    
+    // Event listeners for radio buttons
+    document.getElementById('pickup')?.addEventListener('change', () => selectDelivery('pickup'));
+    document.getElementById('delivery')?.addEventListener('change', () => selectDelivery('delivery'));
     
     // Initial load
     updateCartCount();

@@ -40,69 +40,56 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Product 1 - Velvet Dusk Espresso -->
         <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
             <img th:src="@{/images/coffee-beans.jpg}" class="w-full h-64 object-cover"/>
             <div class="p-6">
                 <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Velvet Dusk Espresso</h3><span>$28.00</span></div>
                 <p class="text-[#C5B5A8] text-sm my-2">Dark Roast | Ethiopia</p>
-                <div class="flex gap-2 mb-4"><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Dark Chocolate</span><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Black Cherry</span></div>
-                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Velvet Dusk Espresso" data-price="28.00" data-image="/images/coffee-beans.jpg">Add to Cart</button>
+                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Velvet Dusk Espresso" data-price="28.00" data-image="/images/coffee-beans.jpg" data-type="shop">Add to Cart (Ships to Home)</button>
             </div>
         </div>
-        <!-- Product 2 - Morning Ritual Blend -->
         <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
             <img th:src="@{/images/morning-ritual.jpg}" class="w-full h-64 object-cover"/>
             <div class="p-6">
                 <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Morning Ritual Blend</h3><span>$24.00</span></div>
                 <p class="text-[#C5B5A8] text-sm my-2">Medium Roast | Colombia & Brazil</p>
-                <div class="flex gap-2 mb-4"><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Caramel</span><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Orange Zest</span></div>
-                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Morning Ritual Blend" data-price="24.00" data-image="/images/morning-ritual.jpg">Add to Cart</button>
+                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Morning Ritual Blend" data-price="24.00" data-image="/images/morning-ritual.jpg" data-type="shop">Add to Cart (Ships to Home)</button>
             </div>
         </div>
-        <!-- Product 3 - Highland Mist Light -->
         <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
             <img th:src="@{/images/ethiopia.jpg}" class="w-full h-64 object-cover"/>
             <div class="p-6">
                 <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Highland Mist Light</h3><span>$32.00</span></div>
                 <p class="text-[#C5B5A8] text-sm my-2">Light Roast | Kenya</p>
-                <div class="flex gap-2 mb-4"><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Jasmine</span><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Honey</span></div>
-                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Highland Mist Light" data-price="32.00" data-image="/images/ethiopia.jpg">Add to Cart</button>
+                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Highland Mist Light" data-price="32.00" data-image="/images/ethiopia.jpg" data-type="shop">Add to Cart (Ships to Home)</button>
             </div>
         </div>
-        <!-- Product 4 - Single Origin Reserve -->
         <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
             <img th:src="@{/images/reserve-single-origin.jpg}" class="w-full h-64 object-cover"/>
             <div class="p-6">
                 <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Single Origin Reserve</h3><span>$36.00</span></div>
                 <p class="text-[#C5B5A8] text-sm my-2">Medium-Light | Panama</p>
-                <div class="flex gap-2 mb-4"><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Bergamot</span><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Brown Sugar</span></div>
-                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Single Origin Reserve" data-price="36.00" data-image="/images/reserve-single-origin.jpg">Add to Cart</button>
+                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Single Origin Reserve" data-price="36.00" data-image="/images/reserve-single-origin.jpg" data-type="shop">Add to Cart (Ships to Home)</button>
             </div>
         </div>
-        <!-- Product 5 - Sun-Dried Sumatra -->
         <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
             <img th:src="@{/images/sumatra-sun-dried.jpg}" class="w-full h-64 object-cover"/>
             <div class="p-6">
                 <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Sun-Dried Sumatra</h3><span>$26.00</span></div>
                 <p class="text-[#C5B5A8] text-sm my-2">Dark Roast | Indonesia</p>
-                <div class="flex gap-2 mb-4"><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Earth</span><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Cedar</span></div>
-                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Sun-Dried Sumatra" data-price="26.00" data-image="/images/sumatra-sun-dried.jpg">Add to Cart</button>
+                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Sun-Dried Sumatra" data-price="26.00" data-image="/images/sumatra-sun-dried.jpg" data-type="shop">Add to Cart (Ships to Home)</button>
             </div>
         </div>
-        <!-- Product 6 - Midnight Roast Powder -->
         <div class="bg-[#362419] rounded-2xl overflow-hidden border border-[#D4A373]/20">
             <img th:src="@{/images/midnight-roast-powder.jpg}" class="w-full h-64 object-cover"/>
             <div class="p-6">
                 <div class="flex justify-between"><h3 class="text-2xl text-[#D4A373]">Midnight Roast Powder</h3><span>$22.00</span></div>
                 <p class="text-[#C5B5A8] text-sm my-2">Extra Dark | House Blend</p>
-                <div class="flex gap-2 mb-4"><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Smoke</span><span class="bg-[#4A372E] text-[#C5B5A8] px-2 py-1 rounded-full text-xs">Toasted Cocoa</span></div>
-                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Midnight Roast Powder" data-price="22.00" data-image="/images/midnight-roast-powder.jpg">Add to Cart</button>
+                <button class="cart-btn w-full bg-[#D4A373] text-[#2C1F18] py-3 rounded-full font-bold text-sm uppercase hover:bg-[#E8B88A]" data-name="Midnight Roast Powder" data-price="22.00" data-image="/images/midnight-roast-powder.jpg" data-type="shop">Add to Cart (Ships to Home)</button>
             </div>
         </div>
     </div>
 
-    <!-- Subscription Banner -->
     <div class="mt-24 bg-[#D4A373] text-[#2C1F18] rounded-3xl p-12 text-center">
         <h2 class="text-4xl font-headline mb-4">Never run out of the ritual.</h2>
         <p class="mb-6">Join our 'Copper Club' subscription and get 15% off every bag.</p>
@@ -119,7 +106,10 @@
     
     function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); updateCartCount(); }
     
-    function updateCartCount() { const total = cart.reduce((s,i)=> s + i.quantity, 0); document.querySelectorAll('#cart-count').forEach(el => el.textContent = total); }
+    function updateCartCount() { 
+        const total = cart.reduce((s,i)=> s + i.quantity, 0); 
+        document.querySelectorAll('#cart-count').forEach(el => el.textContent = total); 
+    }
     
     function showNotification(msg, type) { 
         const n = document.createElement('div'); 
@@ -129,20 +119,20 @@
         setTimeout(() => n.remove(), 2000); 
     }
     
-    function addToCart(name, price, image) { 
+    function addToCart(name, price, image, type) { 
         const existing = cart.find(i => i.name === name); 
         if(existing) { 
             existing.quantity++; 
         } else { 
-            cart.push({ name, price, quantity: 1, image: image }); 
+            cart.push({ name, price, quantity: 1, image: image, type: type || 'shop' }); 
         } 
         saveCart(); 
-        showNotification(`✓ ${name} added to cart!`, 'success'); 
+        showNotification(`✓ ${name} added to cart! (Ships to home)`, 'success'); 
     }
     
     document.querySelectorAll('.cart-btn').forEach(btn => { 
         btn.addEventListener('click', () => { 
-            addToCart(btn.dataset.name, parseFloat(btn.dataset.price), btn.dataset.image); 
+            addToCart(btn.dataset.name, parseFloat(btn.dataset.price), btn.dataset.image, 'shop'); 
         }); 
     });
     

@@ -23,9 +23,6 @@
         outline: none;
         ring: 2px solid #D4A373;
     }
-    input.error {
-        border-color: #ba1a1a;
-    }
     @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
 </style>
@@ -53,6 +50,14 @@
     <div class="flex items-center gap-4 mb-8">
         <a href="/cart" class="text-[#D4A373] hover:underline">← Back to Cart</a>
         <h1 class="text-4xl text-[#D4A373]">Checkout</h1>
+    </div>
+
+    <!-- Delivery Method Info -->
+    <div id="delivery-info" class="bg-[#D4A373]/10 border border-[#D4A373]/30 rounded-xl p-4 mb-6 hidden">
+        <p class="text-sm text-[#C5B5A8]">
+            <span class="font-bold text-[#D4A373]">🚚 Delivery Info:</span> 
+            <span id="delivery-message"></span>
+        </p>
     </div>
 
     <!-- Redirect if cart is empty -->
@@ -88,8 +93,8 @@
                 </div>
             </div>
 
-            <!-- Shipping Address -->
-            <div class="bg-[#362419] rounded-2xl p-6 border border-[#D4A373]/20">
+            <!-- Shipping Address (only for delivery) -->
+            <div id="shipping-address" class="bg-[#362419] rounded-2xl p-6 border border-[#D4A373]/20 hidden">
                 <h2 class="text-2xl text-[#D4A373] mb-6">Shipping Address</h2>
                 <div>
                     <label class="block text-[#D4A373] text-sm mb-2">Street Address *</label>
@@ -122,11 +127,21 @@
                 </div>
             </div>
 
+            <!-- Pickup Info (only for pickup) -->
+            <div id="pickup-info" class="bg-[#362419] rounded-2xl p-6 border border-[#D4A373]/20 hidden">
+                <h2 class="text-2xl text-[#D4A373] mb-4">Pickup Information</h2>
+                <div class="bg-[#2C1F18] rounded-xl p-4">
+                    <p class="text-[#D4A373] font-medium mb-2">📍 Roast & Ritual Cafe</p>
+                    <p class="text-[#C5B5A8] text-sm">1245 Gibbons Lane, Portland, OR 97209</p>
+                    <p class="text-[#C5B5A8] text-sm mt-2">⏰ Ready in 15-20 minutes</p>
+                    <p class="text-[#C5B5A8] text-sm">🕐 Hours: Mon-Sun 7am - 7pm</p>
+                </div>
+            </div>
+
             <!-- Payment Method -->
             <div class="bg-[#362419] rounded-2xl p-6 border border-[#D4A373]/20">
                 <h2 class="text-2xl text-[#D4A373] mb-6">Payment Method</h2>
                 
-                <!-- Payment Options -->
                 <div class="grid grid-cols-3 gap-3 mb-6">
                     <div class="payment-method-card border border-[#5C4036] rounded-xl p-3 text-center active" data-method="card">
                         <span class="material-symbols-outlined text-2xl text-[#D4A373]">credit_card</span>
@@ -142,7 +157,6 @@
                     </div>
                 </div>
 
-                <!-- Credit Card Form -->
                 <div id="card-form">
                     <div class="grid grid-cols-1 gap-4">
                         <div>
@@ -166,21 +180,17 @@
                     </div>
                 </div>
 
-                <!-- PayPal Message -->
                 <div id="paypal-message" class="hidden text-center py-8">
                     <span class="material-symbols-outlined text-5xl text-[#D4A373]">payments</span>
                     <p class="text-[#C5B5A8] mt-4">You will be redirected to PayPal to complete your payment.</p>
                 </div>
 
-                <!-- Cash on Delivery Message -->
                 <div id="cash-message" class="hidden text-center py-8">
                     <span class="material-symbols-outlined text-5xl text-[#D4A373]">payments</span>
                     <p class="text-[#C5B5A8] mt-4">Pay with cash when your order arrives.</p>
-                    <p class="text-[#C5B5A8] text-sm mt-2">No extra fees for cash on delivery.</p>
                 </div>
             </div>
 
-            <!-- Place Order Button -->
             <button id="placeOrderBtn" class="w-full bg-[#D4A373] text-[#2C1F18] py-4 rounded-full font-bold text-lg hover:bg-[#E8B88A] transition-all">
                 Place Order
             </button>
@@ -189,22 +199,11 @@
         <!-- Right Column: Order Summary -->
         <div class="bg-[#362419] rounded-2xl p-6 border border-[#D4A373]/20 h-fit sticky top-24">
             <h2 class="text-2xl text-[#D4A373] mb-6">Order Summary</h2>
-            <div id="order-items" class="space-y-3 max-h-96 overflow-y-auto mb-6 custom-scrollbar">
-                <!-- Cart items will be displayed here -->
-            </div>
+            <div id="order-items" class="space-y-3 max-h-96 overflow-y-auto mb-6 custom-scrollbar"></div>
             <div class="border-t border-[#5C4036] pt-4 space-y-2">
-                <div class="flex justify-between">
-                    <span class="text-[#C5B5A8]">Subtotal</span>
-                    <span id="checkout-subtotal">$0.00</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-[#C5B5A8]">Shipping</span>
-                    <span>$5.00</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-[#C5B5A8]">Tax (10%)</span>
-                    <span id="checkout-tax">$0.00</span>
-                </div>
+                <div class="flex justify-between"><span class="text-[#C5B5A8]">Subtotal</span><span id="checkout-subtotal">$0.00</span></div>
+                <div class="flex justify-between"><span class="text-[#C5B5A8]">Delivery Fee</span><span id="checkout-delivery-fee">$0.00</span></div>
+                <div class="flex justify-between"><span class="text-[#C5B5A8]">Tax (10%)</span><span id="checkout-tax">$0.00</span></div>
                 <div class="border-t border-[#5C4036] pt-3 mt-3">
                     <div class="flex justify-between font-bold">
                         <span class="text-[#D4A373] text-lg">Total</span>
@@ -221,7 +220,7 @@
     <div class="bg-[#362419] rounded-2xl p-8 max-w-md w-full mx-4 border border-[#D4A373]/20 text-center">
         <span class="material-symbols-outlined text-6xl text-[#D4A373] mb-4">check_circle</span>
         <h2 class="text-2xl text-[#D4A373] mb-4">Order Confirmed!</h2>
-        <p class="text-[#C5B5A8] mb-4">Thank you for your order. We'll send you a confirmation email shortly.</p>
+        <p class="text-[#C5B5A8] mb-4" id="confirmation-message">Thank you for your order!</p>
         <div class="bg-[#2C1F18] rounded-xl p-4 mb-6">
             <p class="text-[#C5B5A8] text-sm">Order #ROAST-<span id="orderNumber"></span></p>
             <p class="text-[#D4A373] text-xl font-bold mt-2" id="orderTotal"></p>
@@ -238,21 +237,15 @@
 </footer>
 
 <style>
-    .custom-scrollbar::-webkit-scrollbar {
-        width: 6px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-        background: #2C1F18;
-        border-radius: 10px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #D4A373;
-        border-radius: 10px;
-    }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #2C1F18; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #D4A373; border-radius: 10px; }
 </style>
 
 <script>
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let deliveryMethod = localStorage.getItem('deliveryMethod') || 'pickup';
+    let deliveryFee = parseFloat(localStorage.getItem('deliveryFee')) || 0;
     
     function updateCartCount() { 
         const total = cart.reduce((s,i)=> s + i.quantity, 0); 
@@ -261,11 +254,9 @@
     
     function updateOrderSummary() {
         const subtotal = cart.reduce((s,i)=> s + (i.price * i.quantity), 0);
-        const shipping = 5.00;
         const tax = subtotal * 0.10;
-        const total = subtotal + shipping + tax;
+        const total = subtotal + deliveryFee + tax;
         
-        // Display order items
         const orderItemsDiv = document.getElementById('order-items');
         if (orderItemsDiv) {
             if (cart.length === 0) {
@@ -275,10 +266,7 @@
                 cart.forEach(item => {
                     itemsHtml += `
                         <div class="flex justify-between items-center py-2 border-b border-[#5C4036]">
-                            <div class="flex-1">
-                                <p class="font-medium">${escapeHtml(item.name)}</p>
-                                <p class="text-sm text-[#C5B5A8]">Qty: ${item.quantity}</p>
-                            </div>
+                            <div><p class="font-medium">${escapeHtml(item.name)}</p><p class="text-sm text-[#C5B5A8]">Qty: ${item.quantity}</p></div>
                             <span class="text-[#D4A373]">$${(item.price * item.quantity).toFixed(2)}</span>
                         </div>
                     `;
@@ -288,8 +276,26 @@
         }
         
         document.getElementById('checkout-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+        document.getElementById('checkout-delivery-fee').textContent = `$${deliveryFee.toFixed(2)}`;
         document.getElementById('checkout-tax').textContent = `$${tax.toFixed(2)}`;
         document.getElementById('checkout-total').textContent = `$${total.toFixed(2)}`;
+        
+        // Update delivery info display
+        const deliveryInfo = document.getElementById('delivery-info');
+        const deliveryMessage = document.getElementById('delivery-message');
+        const shippingAddress = document.getElementById('shipping-address');
+        const pickupInfo = document.getElementById('pickup-info');
+        
+        if (deliveryMethod === 'pickup') {
+            deliveryMessage.innerHTML = 'You have selected <strong class="text-[#D4A373]">in-store pickup</strong>. Please bring your ID when picking up your order.';
+            if (shippingAddress) shippingAddress.classList.add('hidden');
+            if (pickupInfo) pickupInfo.classList.remove('hidden');
+        } else {
+            deliveryMessage.innerHTML = 'You have selected <strong class="text-[#D4A373]">home delivery</strong>. Please provide your shipping address below.';
+            if (shippingAddress) shippingAddress.classList.remove('hidden');
+            if (pickupInfo) pickupInfo.classList.add('hidden');
+        }
+        deliveryInfo.classList.remove('hidden');
     }
     
     function escapeHtml(text) {
@@ -298,7 +304,6 @@
         return div.innerHTML;
     }
     
-    // Check if cart is empty and show/hide content
     function checkCartEmpty() {
         const emptyWarning = document.getElementById('empty-cart-warning');
         const checkoutContent = document.getElementById('checkout-content');
@@ -324,22 +329,13 @@
         method.addEventListener('click', () => {
             paymentMethods.forEach(m => m.classList.remove('active'));
             method.classList.add('active');
-            
             const selectedMethod = method.dataset.method;
-            
-            // Hide all payment forms
             if(cardForm) cardForm.classList.add('hidden');
             if(paypalMessage) paypalMessage.classList.add('hidden');
             if(cashMessage) cashMessage.classList.add('hidden');
-            
-            // Show selected payment form
-            if(selectedMethod === 'card') {
-                if(cardForm) cardForm.classList.remove('hidden');
-            } else if(selectedMethod === 'paypal') {
-                if(paypalMessage) paypalMessage.classList.remove('hidden');
-            } else if(selectedMethod === 'cash') {
-                if(cashMessage) cashMessage.classList.remove('hidden');
-            }
+            if(selectedMethod === 'card') { if(cardForm) cardForm.classList.remove('hidden'); }
+            else if(selectedMethod === 'paypal') { if(paypalMessage) paypalMessage.classList.remove('hidden'); }
+            else if(selectedMethod === 'cash') { if(cashMessage) cashMessage.classList.remove('hidden'); }
         });
     });
     
@@ -359,129 +355,81 @@
     if(expiryInput) {
         expiryInput.addEventListener('input', function(e) {
             let value = e.target.value.replace(/\//g, '');
-            if(value.length >= 2) {
-                value = value.slice(0,2) + '/' + value.slice(2,4);
-            }
+            if(value.length >= 2) value = value.slice(0,2) + '/' + value.slice(2,4);
             e.target.value = value;
         });
     }
     
     // Validate form
     function validateForm() {
-        let isValid = true;
-        
         const firstName = document.getElementById('firstName')?.value.trim();
         const lastName = document.getElementById('lastName')?.value.trim();
         const email = document.getElementById('email')?.value.trim();
-        const address = document.getElementById('address')?.value.trim();
-        const city = document.getElementById('city')?.value.trim();
-        const zip = document.getElementById('zip')?.value.trim();
         
-        if(!firstName || !lastName) {
-            alert('Please enter your full name');
-            return false;
-        }
-        if(!email || !email.includes('@')) {
-            alert('Please enter a valid email address');
-            return false;
-        }
-        if(!address || !city || !zip) {
-            alert('Please enter your complete shipping address');
-            return false;
+        if(!firstName || !lastName) { alert('Please enter your full name'); return false; }
+        if(!email || !email.includes('@')) { alert('Please enter a valid email address'); return false; }
+        
+        if (deliveryMethod === 'delivery') {
+            const address = document.getElementById('address')?.value.trim();
+            const city = document.getElementById('city')?.value.trim();
+            const zip = document.getElementById('zip')?.value.trim();
+            if(!address || !city || !zip) { alert('Please enter your complete shipping address'); return false; }
         }
         
         const selectedMethod = document.querySelector('.payment-method-card.active')?.dataset.method;
-        
         if(selectedMethod === 'card') {
             const cardNumber = document.getElementById('cardNumber')?.value.replace(/\s/g, '');
             const expiry = document.getElementById('expiry')?.value;
             const cvv = document.getElementById('cvv')?.value;
             const cardName = document.getElementById('cardName')?.value.trim();
-            
-            if(!cardNumber || cardNumber.length < 16) {
-                alert('Please enter a valid 16-digit card number');
-                return false;
-            }
-            if(!expiry || expiry.length < 5) {
-                alert('Please enter valid expiry date (MM/YY)');
-                return false;
-            }
-            if(!cvv || cvv.length < 3) {
-                alert('Please enter valid CVV');
-                return false;
-            }
-            if(!cardName) {
-                alert('Please enter cardholder name');
-                return false;
-            }
+            if(!cardNumber || cardNumber.length < 16) { alert('Please enter a valid 16-digit card number'); return false; }
+            if(!expiry || expiry.length < 5) { alert('Please enter valid expiry date (MM/YY)'); return false; }
+            if(!cvv || cvv.length < 3) { alert('Please enter valid CVV'); return false; }
+            if(!cardName) { alert('Please enter cardholder name'); return false; }
         }
-        
         return true;
     }
     
     function showNotification(message, type) {
         const notification = document.createElement('div');
         notification.textContent = message;
-        notification.style.cssText = `
-            position: fixed; bottom: 20px; right: 20px;
-            background: ${type === 'success' ? '#D4A373' : '#ba1a1a'};
-            color: ${type === 'success' ? '#2C1F18' : '#FAF7F2'};
-            padding: 12px 24px; border-radius: 50px; z-index: 9999;
-            animation: slideIn 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        `;
+        notification.style.cssText = `position:fixed;bottom:20px;right:20px;background:${type==='success'?'#D4A373':'#ba1a1a'};color:${type==='success'?'#2C1F18':'#FAF7F2'};padding:12px 24px;border-radius:50px;z-index:9999;animation:slideIn 0.3s ease;`;
         document.body.appendChild(notification);
-        setTimeout(() => {
-            notification.style.animation = 'slideOut 0.3s ease';
-            setTimeout(() => notification.remove(), 300);
-        }, 3000);
+        setTimeout(() => { notification.style.animation = 'slideOut 0.3s ease'; setTimeout(() => notification.remove(), 300); }, 3000);
     }
     
     // Place order
     const placeOrderBtn = document.getElementById('placeOrderBtn');
     if(placeOrderBtn) {
         placeOrderBtn.addEventListener('click', () => {
-            if (cart.length === 0) {
-                alert('Your cart is empty. Please add items before checking out.');
-                return;
-            }
-            
+            if (cart.length === 0) { alert('Your cart is empty.'); return; }
             if(validateForm()) {
                 const firstName = document.getElementById('firstName')?.value.trim();
                 const subtotal = cart.reduce((s,i)=> s + (i.price * i.quantity), 0);
-                const total = subtotal + 5 + (subtotal * 0.10);
+                const total = subtotal + deliveryFee + (subtotal * 0.10);
                 
-                // Clear cart
                 cart = [];
                 localStorage.setItem('cart', JSON.stringify(cart));
-                
-                // Update cart count on all pages
                 updateCartCount();
                 
-                // Show confirmation modal
                 const orderNumber = Math.floor(Math.random() * 1000000);
                 document.getElementById('orderNumber').textContent = orderNumber;
                 document.getElementById('orderTotal').textContent = `$${total.toFixed(2)}`;
+                const confirmMsg = deliveryMethod === 'pickup' 
+                    ? `Thank you ${firstName}! Your order is ready for pickup at our Portland cafe.`
+                    : `Thank you ${firstName}! Your order will be shipped to your address.`;
+                document.getElementById('confirmation-message').textContent = confirmMsg;
                 document.getElementById('confirmationModal').classList.remove('hidden');
-                
-                // Show success notification
-                showNotification(`Thank you ${firstName}! Your order has been placed.`, 'success');
+                showNotification(`Order placed! ${deliveryMethod === 'pickup' ? 'Pickup at store' : 'Delivery to your address'}`, 'success');
             }
         });
     }
     
-    // Close modal when clicking outside
     const modal = document.getElementById('confirmationModal');
     if(modal) {
-        modal.addEventListener('click', (e) => {
-            if(e.target === modal) {
-                modal.classList.add('hidden');
-                // Redirect to home page after closing modal
-                window.location.href = '/';
-            }
-        });
+        modal.addEventListener('click', (e) => { if(e.target === modal) { modal.classList.add('hidden'); window.location.href = '/'; } });
     }
     
-    // Initial load
     updateCartCount();
     updateOrderSummary();
     checkCartEmpty();
